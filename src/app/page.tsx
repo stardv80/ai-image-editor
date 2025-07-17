@@ -127,7 +127,7 @@ export default function Home() {
                       </span>{' '}
                       or drag and drop
                     </p>
-                    <p className="text-xs text-gray-500">PNG, JPG up to 4MB</p>
+                    <p className="text-xs text-gray-500">PNG, JPG, WEBP up to 4MB</p>
                   </div>
                 </label>
               </div>
