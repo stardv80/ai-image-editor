@@ -1,97 +1,222 @@
 # OpenAI Image Editor
 
-A simple Next.js application that allows you to upload images and edit them using OpenAI's image editing API with natural language prompts.
+A modern Next.js application that allows you to upload images and edit them using OpenAI's latest **GPT Image 1** model with natural language prompts. Transform your images with style conversions like pixel art, artistic filters, and detailed modifications.
 
 ## Features
 
-- 🖼️ Upload and preview images
-- ✨ Edit images using natural language prompts
+- 🖼️ Upload and preview images (PNG, JPG, WEBP supported)
+- ✨ Edit images using natural language prompts with GPT Image 1
+- 🎨 Advanced style transformations (pixel art, artistic styles, etc.)
 - 💾 Download edited images
-- 🎨 Clean, modern UI with Tailwind CSS
+- 🎭 Clean, modern UI with Tailwind CSS
 - ⚡ Built with Next.js 14 and TypeScript
+- 🔧 Automatic image format conversion (RGB to RGBA)
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+### Required
 
 - Node.js 18+ 
-- An OpenAI API key with access to image editing
+- An OpenAI API key
+- **Verified OpenAI Organization** (required for GPT Image 1 access)
 
-### Installation
+### OpenAI Organization Verification
 
-1. Clone the repository:
+**Important**: This application uses OpenAI's GPT Image 1 model, which requires a verified organization. You must complete organization verification before using the app.
+
+#### How to Verify Your Organization:
+
+1. **Go to Organization Settings**: Visit [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general)
+
+2. **Click "Verify Organization"**: Look for the verification button on the page
+
+3. **Complete Verification Process**: 
+   By the time of writing this, the verification steps are as follows:
+   - If on a computer, it would show you a QR code to scan with your phone
+   - It would ask you to take a picture of your government issued ID, front and back
+   - It would ask you to take a selfie, and the rotate your face to the left and then to the right
+   - The verifcation happens right away
+
+4. **Recreate an API Key**: My previous API key didn't work, so I had to create a new one.
+
+#### Why Verification is Required:
+
+- GPT Image 1 is OpenAI's most advanced image model
+- Provides superior instruction following compared to DALL-E 2/3
+- Better at style transformations and detailed edits
+- Requires verified organization for security and compliance
+
+## Installation & Setup
+
+### 1. Clone the Repository
+
 ```bash
 git clone <your-repo-url>
 cd open-ai-image-generator
 ```
 
-2. Install dependencies:
+### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
-3. Create a `.env.local` file in the root directory and add your OpenAI API key:
+### 3. Environment Configuration
+
+Create a `.env.local` file in the root directory:
+
 ```bash
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-4. Run the development server:
+### 4. Get Your OpenAI API Key
+
+1. Visit [OpenAI Platform](https://platform.openai.com/)
+2. Sign up or log in to your account
+3. Navigate to **API Keys** section
+4. Click **"Create new secret key"**
+5. Copy the key and add it to your `.env.local` file
+
+### 5. Run the Application
+
 ```bash
+# Development mode
 npm run dev
+
+# Production build
+npm run build
+npm start
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Getting an OpenAI API Key
-
-1. Go to [OpenAI's website](https://platform.openai.com/)
-2. Sign up or log in to your account
-3. Navigate to the API keys section
-4. Create a new API key
-5. Copy the key and add it to your `.env.local` file
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## How to Use
 
-1. **Upload an Image**: Click the upload area or drag and drop an image file (PNG, JPG supported)
-2. **Enter a Prompt**: Describe how you want to edit the image (e.g., "add a hat to the person", "change the background to a beach")
-3. **Edit**: Click "Edit Image" and wait for the AI to process your request
-4. **Download**: Once the edited image appears, you can download it
+### Basic Usage
 
-## Example Prompts
+1. **Upload an Image**: 
+   - Click the upload area or drag and drop
+   - Supports PNG, JPG, WEBP (up to 4MB)
+   - Image preview will appear
 
-- "Add sunglasses to the person"
-- "Change the background to a tropical beach"
-- "Make the sky look like sunset"
-- "Add snow falling in the scene"
-- "Remove the background completely"
+2. **Enter Your Prompt**: 
+   - Describe the edit you want in natural language
+   - Be specific for better results
+
+3. **Edit Image**: 
+   - Click "Edit Image" 
+   - Wait for GPT Image 1 to process (usually 10-30 seconds)
+
+4. **Download Result**: 
+   - View the edited image
+   - Click "Download Image" to save
+
+### Example Prompts
+
+#### Style Transformations
+- `"Convert this to pixel art style"`
+- `"Make this look like an oil painting"`
+- `"Transform into watercolor style"`
+- `"Convert to black and white sketch"`
+
+#### Object Modifications
+- `"Add sunglasses to the person"`
+- `"Change the shirt color to red"`
+- `"Remove the background completely"`
+- `"Add a hat to the person"`
+
+#### Background Changes
+- `"Change the background to a tropical beach"`
+- `"Make the background look like a starry night"`
+- `"Replace background with a cityscape"`
+- `"Add falling snow to the scene"`
+
+#### Advanced Edits
+- `"Make the person look like they're from the 1920s"`
+- `"Add dramatic lighting like a movie scene"`
+- `"Change the season to autumn with falling leaves"`
 
 ## Technical Details
 
+### Technology Stack
 - **Framework**: Next.js 14 with App Router
 - **Styling**: Tailwind CSS
-- **API**: OpenAI Images API (edit endpoint)
-- **Image Processing**: Client-side file handling with FormData
+- **API**: OpenAI GPT Image 1 (latest image model)
+- **Image Processing**: Sharp.js for format conversion
+- **TypeScript**: Full type safety
 
-## API Endpoints
+### AI Model Information
+- **Model**: GPT Image 1 (OpenAI's latest)
+- **Input**: Supports RGBA, LA, L image formats
+- **Output**: Base64 encoded PNG images
+- **Capabilities**: Superior instruction following, style transformation
 
-- `POST /api/edit-image` - Handles image upload and editing requests
+### API Endpoints
+- `POST /api/edit-image` - Handles image upload and editing
 
-## Important Notes
+## Troubleshooting
 
-- Images should be square and in PNG format for best results
-- The API supports images up to 4MB
-- Each edit request costs credits through the OpenAI API
-- Generated images are temporary URLs that may expire
+### Common Issues
+
+#### 1. "Organization must be verified" Error
+```
+Error: 403 Your organization must be verified to use the model `gpt-image-1`
+```
+**Solution**: Complete organization verification at [OpenAI Settings](https://platform.openai.com/settings/organization/general)
+
+#### 2. "Invalid input image format" Error
+**Solution**: This should be automatically handled by our Sharp.js conversion, but ensure your image is a valid image file.
+
+#### 3. Image Upload Issues
+- Ensure image is under 4MB
+- Supported formats: PNG, JPG, WEBP
+- Try refreshing the page if upload fails
+
+#### 4. Slow Processing
+- GPT Image 1 typically takes 10-30 seconds
+- Complex edits may take longer
+- Check your internet connection
+
+### Getting Help
+
+1. Check the browser console for detailed error messages
+2. Verify your OpenAI API key is valid
+3. Ensure organization verification is complete
+4. Try with a smaller image file
 
 ## Deployment
 
-Deploy easily on Vercel:
+### Vercel (Recommended)
 
 1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add your `OPENAI_API_KEY` environment variable in Vercel's dashboard
+2. Connect repository to [Vercel](https://vercel.com)
+3. Add environment variable:
+   - `OPENAI_API_KEY`: Your OpenAI API key
 4. Deploy!
+
+### Other Platforms
+
+Ensure you set the `OPENAI_API_KEY` environment variable in your deployment platform.
+
+## Cost Considerations
+
+- GPT Image 1 pricing varies based on image size and quality
+- Check [OpenAI Pricing](https://openai.com/api/pricing/) for current rates
+- Each edit operation consumes API credits
+- Consider implementing usage tracking for production apps
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
 MIT License - feel free to use this code for your own projects.
+
+---
+
+**Note**: This application requires OpenAI organization verification to access GPT Image 1. Make sure to complete the verification process before deployment or usage.
