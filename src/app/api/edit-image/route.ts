@@ -30,6 +30,31 @@ export async function POST(request: NextRequest) {
     const bytes = await imageFile.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
+    // Get image metadata to preserve aspect ratio
+    const metadata = await sharp(buffer).metadata()
+    const { width, height } = metadata
+
+    // Determine the best size based on aspect ratio
+    let size: '1024x1024' | '1536x1024' | '1024x1536'
+    
+    if (!width || !height) {
+      // Fallback to square if dimensions can't be determined
+      size = '1024x1024'
+    } else {
+      const aspectRatio = width / height
+      
+      if (aspectRatio > 1.3) {
+        // Landscape (wider than tall)
+        size = '1536x1024'
+      } else if (aspectRatio < 0.77) {
+        // Portrait (taller than wide)
+        size = '1024x1536'
+      } else {
+        // Square or close to square
+        size = '1024x1024'
+      }
+    }
+
     // Convert image to PNG format with RGBA channels (OpenAI requires RGBA, LA, or L format)
     const pngBuffer = await sharp(buffer)
       .ensureAlpha() // Ensure the image has an alpha channel (RGBA format)
@@ -47,7 +72,7 @@ export async function POST(request: NextRequest) {
       image: file,
       prompt: prompt,
       n: 1,
-      size: '1024x1024',
+      size: size,
     })
 
     const imageData = response.data?.[0]
