@@ -27,15 +27,15 @@ export default function Home() {
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+    event.preventDefault();
     
     if (!selectedImage || !prompt.trim()) {
       setError('Please select an image and enter a prompt')
-      return
+      return;
     }
 
-    setIsLoading(true)
-    setError(null)
+    setIsLoading(true);
+    setError(null);
 
     try {
       const formData = new FormData()
